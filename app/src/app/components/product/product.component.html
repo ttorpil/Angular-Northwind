@@ -1,0 +1,116 @@
+<h2>Malzeme {{ product.id ? "Güncelle" : "Ekle" }}</h2>
+<div class="row justify-content-md-center">
+  <form
+    #prodctForm="ngForm"
+    class="m-auto col col-md-8 py-4"
+    (submit)="addOrUpdate()"
+    autocomplete="false"
+  >
+    <div class="form-group py-2">
+      <label for="name">Name</label>
+      <input
+        [(ngModel)]="product.name"
+        #nameInput="ngModel"
+        [ngClass]="formInValid && nameInput.invalid ? 'is-invalid' : ''"
+        required
+        class="form-control form-control-sm"
+        id="name"
+        name="name"
+      />
+    </div>
+
+    <div class="form-group py-2">
+      <label for="unitPrice">unitPrice</label>
+      <input
+        [(ngModel)]="product.unitPrice"
+        #unitPriceInput="ngModel"
+        [ngClass]="formInValid && unitPriceInput.invalid ? 'is-invalid' : ''"
+        required
+        class="form-control form-control-sm"
+        id="unitPrice"
+        name="unitPrice"
+        type="number"
+      />
+    </div>
+
+    <div class="form-group py-2">
+      <label for="unitPrice">unitsInStock</label>
+      <input
+        [(ngModel)]="product.unitsInStock"
+        #unitsInStockInput="ngModel"
+        [ngClass]="formInValid && unitsInStockInput.invalid ? 'is-invalid' : ''"
+        required
+        class="form-control form-control-sm"
+        id="unitsInStock"
+        name="unitsInStock"
+        type="number"
+      />
+    </div>
+
+    <div class="form-group py-2">
+      <div class="form-check">
+        <input
+          type="checkbox"
+          id="discontinued"
+          name="discontinued"
+          class="form-check-input"
+          value="true"
+          [checked]="product.discontinued"
+          [ngModel]="product.discontinued"
+        />
+        <label for="discontinued" class="form-check-label">
+          discontinued
+        </label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="categoryID">category</label>
+      <select
+        [(ngModel)]="product.categoryID"
+        id="categoryID"
+        name="categoryID"
+        #categorySelect="ngModel"
+        [ngClass]="formInValid && categorySelect.invalid ? 'is-invalid' : ''"
+        class="form-control form-control-sm"
+        required
+      >
+      <option disabled value="undefined">Seçiniz...</option>
+        <option *ngFor="let category of categories" [value]="category.id">
+          {{ category.name}}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="supplierID">supplier</label>
+      <select
+        [(ngModel)]="product.supplierID"
+        id="supplierID"
+        name="supplierID"
+        #supplierSelect="ngModel"
+        [ngClass]="formInValid && supplierSelect.invalid ? 'is-invalid' : ''"
+        class="form-control form-control-sm"
+        required
+      >
+      <option disabled value="undefined">Seçiniz...</option>
+        <option *ngFor="let supplier of suppliers" [value]="supplier.id">
+          {{ supplier.companyName }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group py-2">
+      <div class="d-grid gap-2 col-6 mx-auto">
+        <button
+          placement="auto"
+          tooltip="Save Button "
+          type="submit"
+          class="btn btn-block py-2"
+          [ngClass]="product.id ? 'btn-outline-info ' : 'btn-outline-success '"
+        >
+          {{ product.id ? "Güncelle" : "Ekle" }}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
